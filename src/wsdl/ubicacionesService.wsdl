@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:tns="http://www.ejemplo.com/wsdl/ubicaciones" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.ejemplo.com/wsdl/ubicaciones">
+
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.ejemplo.com/wsdl/ubicaciones">
+      <!-- Definición de tipos para ubicaciones -->
+      <xsd:complexType name="Ubicacion">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="codigo" type="xsd:string"/>
+          <xsd:element name="nombre" type="xsd:string"/>
+          <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="activo" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <!-- Request y Response para GetAllUbicaciones -->
+      <xsd:element name="GetAllUbicacionesRequest">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetAllUbicacionesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicaciones" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="ubicacion" type="tns:Ubicacion" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetUbicacionById -->
+      <xsd:element name="GetUbicacionByIdRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetUbicacionByIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicacion" type="tns:Ubicacion" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para CreateUbicacion -->
+      <xsd:element name="CreateUbicacionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicacion" type="tns:Ubicacion"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="CreateUbicacionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="codigo" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="nombre" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para UpdateUbicacion -->
+      <xsd:element name="UpdateUbicacionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicacion" type="tns:Ubicacion"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="UpdateUbicacionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="codigo" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="nombre" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="activo" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para DeleteUbicacion -->
+      <xsd:element name="DeleteUbicacionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="DeleteUbicacionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+
+  <!-- Mensajes -->
+  <wsdl:message name="GetAllUbicacionesRequest">
+    <wsdl:part element="tns:GetAllUbicacionesRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllUbicacionesResponse">
+    <wsdl:part element="tns:GetAllUbicacionesResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetUbicacionByIdRequest">
+    <wsdl:part element="tns:GetUbicacionByIdRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetUbicacionByIdResponse">
+    <wsdl:part element="tns:GetUbicacionByIdResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="CreateUbicacionRequest">
+    <wsdl:part element="tns:CreateUbicacionRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="CreateUbicacionResponse">
+    <wsdl:part element="tns:CreateUbicacionResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="UpdateUbicacionRequest">
+    <wsdl:part element="tns:UpdateUbicacionRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateUbicacionResponse">
+    <wsdl:part element="tns:UpdateUbicacionResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="DeleteUbicacionRequest">
+    <wsdl:part element="tns:DeleteUbicacionRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteUbicacionResponse">
+    <wsdl:part element="tns:DeleteUbicacionResponse" name="parameters"/>
+  </wsdl:message>
+
+  <!-- Definición de Port Type -->
+  <wsdl:portType name="UbicacionesPort">
+    <wsdl:operation name="GetAllUbicaciones">
+      <wsdl:input message="tns:GetAllUbicacionesRequest"/>
+      <wsdl:output message="tns:GetAllUbicacionesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetUbicacionById">
+      <wsdl:input message="tns:GetUbicacionByIdRequest"/>
+      <wsdl:output message="tns:GetUbicacionByIdResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUbicacion">
+      <wsdl:input message="tns:CreateUbicacionRequest"/>
+      <wsdl:output message="tns:CreateUbicacionResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUbicacion">
+      <wsdl:input message="tns:UpdateUbicacionRequest"/>
+      <wsdl:output message="tns:UpdateUbicacionResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUbicacion">
+      <wsdl:input message="tns:DeleteUbicacionRequest"/>
+      <wsdl:output message="tns:DeleteUbicacionResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- Binding -->
+  <wsdl:binding name="UbicacionesBinding" type="tns:UbicacionesPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAllUbicaciones">
+      <soap:operation soapAction="http://www.ejemplo.com/GetAllUbicaciones"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUbicacionById">
+      <soap:operation soapAction="http://www.ejemplo.com/GetUbicacionById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUbicacion">
+      <soap:operation soapAction="http://www.ejemplo.com/CreateUbicacion"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUbicacion">
+      <soap:operation soapAction="http://www.ejemplo.com/UpdateUbicacion"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUbicacion">
+      <soap:operation soapAction="http://www.ejemplo.com/DeleteUbicacion"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <!-- Definición del servicio -->
+  <wsdl:service name="UbicacionesService">
+    <wsdl:port binding="tns:UbicacionesBinding" name="UbicacionesPort">
+      <soap:address location="http://localhost:3001/wsdl/ubicaciones"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

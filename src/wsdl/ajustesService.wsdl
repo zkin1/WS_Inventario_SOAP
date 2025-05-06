@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:tns="http://www.ejemplo.com/wsdl/ajustes" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.ejemplo.com/wsdl/ajustes">
+
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.ejemplo.com/wsdl/ajustes">
+      <!-- Definición de tipos para ajustes -->
+      <xsd:complexType name="Ajuste">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="fecha_ajuste" type="xsd:dateTime" minOccurs="0"/>
+          <xsd:element name="producto_id" type="xsd:int"/>
+          <xsd:element name="ubicacion_id" type="xsd:int"/>
+          <xsd:element name="cantidad_anterior" type="xsd:int"/>
+          <xsd:element name="cantidad_nueva" type="xsd:int"/>
+          <xsd:element name="motivo_ajuste" type="xsd:string"/>
+          <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="usuario_id" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="ubicacion_nombre" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="producto" type="xsd:anyType" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="AjusteCreate">
+        <xsd:sequence>
+          <xsd:element name="productoId" type="xsd:int"/>
+          <xsd:element name="ubicacionId" type="xsd:int"/>
+          <xsd:element name="cantidadNueva" type="xsd:int"/>
+          <xsd:element name="motivoAjuste" type="xsd:string"/>
+          <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="usuarioId" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="Pagination">
+        <xsd:sequence>
+          <xsd:element name="total" type="xsd:int"/>
+          <xsd:element name="page" type="xsd:int"/>
+          <xsd:element name="limit" type="xsd:int"/>
+          <xsd:element name="totalPages" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <!-- Request y Response para GetAllAjustes -->
+      <xsd:element name="GetAllAjustesRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="page" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="limit" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="desde" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="hasta" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="productoId" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="ubicacionId" type="xsd:int" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetAllAjustesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ajustes" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="ajuste" type="tns:Ajuste" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="pagination" type="tns:Pagination" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetAjusteById -->
+      <xsd:element name="GetAjusteByIdRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetAjusteByIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ajuste" type="tns:Ajuste" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetAjustesByProducto -->
+      <xsd:element name="GetAjustesByProductoRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="productoId" type="xsd:int"/>
+            <xsd:element name="page" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="limit" type="xsd:int" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetAjustesByProductoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="producto" type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="ajustes" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="ajuste" type="tns:Ajuste" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="pagination" type="tns:Pagination" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para RegistrarAjuste -->
+      <xsd:element name="RegistrarAjusteRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ajuste" type="tns:AjusteCreate"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="RegistrarAjusteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+
+  <!-- Mensajes -->
+  <wsdl:message name="GetAllAjustesRequest">
+    <wsdl:part element="tns:GetAllAjustesRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllAjustesResponse">
+    <wsdl:part element="tns:GetAllAjustesResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetAjusteByIdRequest">
+    <wsdl:part element="tns:GetAjusteByIdRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAjusteByIdResponse">
+    <wsdl:part element="tns:GetAjusteByIdResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetAjustesByProductoRequest">
+    <wsdl:part element="tns:GetAjustesByProductoRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAjustesByProductoResponse">
+    <wsdl:part element="tns:GetAjustesByProductoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="RegistrarAjusteRequest">
+    <wsdl:part element="tns:RegistrarAjusteRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="RegistrarAjusteResponse">
+    <wsdl:part element="tns:RegistrarAjusteResponse" name="parameters"/>
+  </wsdl:message>
+
+  <!-- Definición de Port Type -->
+  <wsdl:portType name="AjustesPort">
+    <wsdl:operation name="GetAllAjustes">
+      <wsdl:input message="tns:GetAllAjustesRequest"/>
+      <wsdl:output message="tns:GetAllAjustesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAjusteById">
+      <wsdl:input message="tns:GetAjusteByIdRequest"/>
+      <wsdl:output message="tns:GetAjusteByIdResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAjustesByProducto">
+      <wsdl:input message="tns:GetAjustesByProductoRequest"/>
+      <wsdl:output message="tns:GetAjustesByProductoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarAjuste">
+      <wsdl:input message="tns:RegistrarAjusteRequest"/>
+      <wsdl:output message="tns:RegistrarAjusteResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- Binding -->
+  <wsdl:binding name="AjustesBinding" type="tns:AjustesPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAllAjustes">
+      <soap:operation soapAction="http://www.ejemplo.com/GetAllAjustes"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAjusteById">
+      <soap:operation soapAction="http://www.ejemplo.com/GetAjusteById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAjustesByProducto">
+      <soap:operation soapAction="http://www.ejemplo.com/GetAjustesByProducto"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarAjuste">
+      <soap:operation soapAction="http://www.ejemplo.com/RegistrarAjuste"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <!-- Definición del servicio -->
+  <wsdl:service name="AjustesService">
+    <wsdl:port binding="tns:AjustesBinding" name="AjustesPort">
+      <soap:address location="http://localhost:3001/wsdl/ajustes"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

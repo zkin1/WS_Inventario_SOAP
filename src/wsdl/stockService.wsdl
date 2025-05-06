@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:tns="http://www.ejemplo.com/wsdl/stock" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.ejemplo.com/wsdl/stock">
+
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.ejemplo.com/wsdl/stock">
+      <!-- Definición de tipos para stock -->
+      <xsd:complexType name="StockItem">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="producto_id" type="xsd:int"/>
+          <xsd:element name="ubicacion_id" type="xsd:int"/>
+          <xsd:element name="cantidad" type="xsd:int"/>
+          <xsd:element name="stock_minimo" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="stock_maximo" type="xsd:int" minOccurs="0"/>
+          <xsd:element name="ubicacion_nombre" type="xsd:string" minOccurs="0"/>
+          <xsd:element name="producto" type="xsd:anyType" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="Pagination">
+        <xsd:sequence>
+          <xsd:element name="total" type="xsd:int"/>
+          <xsd:element name="page" type="xsd:int"/>
+          <xsd:element name="limit" type="xsd:int"/>
+          <xsd:element name="totalPages" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <!-- Request y Response para GetAllStock -->
+      <xsd:element name="GetAllStockRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="page" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="limit" type="xsd:int" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetAllStockResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="stockItems" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="stockItem" type="tns:StockItem" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="pagination" type="tns:Pagination" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetStockByProducto -->
+      <xsd:element name="GetStockByProductoRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="productoId" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetStockByProductoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="producto" type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="stockItems" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="stockItem" type="tns:StockItem" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetStockByUbicacion -->
+      <xsd:element name="GetStockByUbicacionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicacionId" type="xsd:int"/>
+            <xsd:element name="page" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="limit" type="xsd:int" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetStockByUbicacionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ubicacion" type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="stockItems" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="stockItem" type="tns:StockItem" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="pagination" type="tns:Pagination" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para GetStockBajoMinimo -->
+      <xsd:element name="GetStockBajoMinimoRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="page" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="limit" type="xsd:int" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetStockBajoMinimoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="stockItems" minOccurs="0">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="stockItem" type="tns:StockItem" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="pagination" type="tns:Pagination" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Request y Response para ActualizarStockMinMax -->
+      <xsd:element name="ActualizarStockMinMaxRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:int"/>
+            <xsd:element name="stockMinimo" type="xsd:int"/>
+            <xsd:element name="stockMaximo" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="ActualizarStockMinMaxResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="id" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="stockMinimo" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="stockMaximo" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="error" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+
+  <!-- Mensajes -->
+  <wsdl:message name="GetAllStockRequest">
+    <wsdl:part element="tns:GetAllStockRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllStockResponse">
+    <wsdl:part element="tns:GetAllStockResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetStockByProductoRequest">
+    <wsdl:part element="tns:GetStockByProductoRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetStockByProductoResponse">
+    <wsdl:part element="tns:GetStockByProductoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetStockByUbicacionRequest">
+    <wsdl:part element="tns:GetStockByUbicacionRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetStockByUbicacionResponse">
+    <wsdl:part element="tns:GetStockByUbicacionResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="GetStockBajoMinimoRequest">
+    <wsdl:part element="tns:GetStockBajoMinimoRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetStockBajoMinimoResponse">
+    <wsdl:part element="tns:GetStockBajoMinimoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <wsdl:message name="ActualizarStockMinMaxRequest">
+    <wsdl:part element="tns:ActualizarStockMinMaxRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ActualizarStockMinMaxResponse">
+    <wsdl:part element="tns:ActualizarStockMinMaxResponse" name="parameters"/>
+  </wsdl:message>
+
+  <!-- Definición de Port Type -->
+  <wsdl:portType name="StockPort">
+    <wsdl:operation name="GetAllStock">
+      <wsdl:input message="tns:GetAllStockRequest"/>
+      <wsdl:output message="tns:GetAllStockResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockByProducto">
+      <wsdl:input message="tns:GetStockByProductoRequest"/>
+      <wsdl:output message="tns:GetStockByProductoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockByUbicacion">
+      <wsdl:input message="tns:GetStockByUbicacionRequest"/>
+      <wsdl:output message="tns:GetStockByUbicacionResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockBajoMinimo">
+      <wsdl:input message="tns:GetStockBajoMinimoRequest"/>
+      <wsdl:output message="tns:GetStockBajoMinimoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarStockMinMax">
+      <wsdl:input message="tns:ActualizarStockMinMaxRequest"/>
+      <wsdl:output message="tns:ActualizarStockMinMaxResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- Binding -->
+  <wsdl:binding name="StockBinding" type="tns:StockPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAllStock">
+      <soap:operation soapAction="http://www.ejemplo.com/GetAllStock"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockByProducto">
+      <soap:operation soapAction="http://www.ejemplo.com/GetStockByProducto"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockByUbicacion">
+      <soap:operation soapAction="http://www.ejemplo.com/GetStockByUbicacion"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockBajoMinimo">
+      <soap:operation soapAction="http://www.ejemplo.com/GetStockBajoMinimo"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarStockMinMax">
+      <soap:operation soapAction="http://www.ejemplo.com/ActualizarStockMinMax"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <!-- Definición del servicio -->
+  <wsdl:service name="StockService">
+    <wsdl:port binding="tns:StockBinding" name="StockPort">
+      <soap:address location="http://localhost:3001/wsdl/stock"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
