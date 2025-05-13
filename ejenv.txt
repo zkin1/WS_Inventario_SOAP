@@ -1,0 +1,6 @@
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=admin
+DB_NAME=ws_inventario_db
+PORT=3001
+API_PRODUCTOS_URL=httplocalhost3000api
