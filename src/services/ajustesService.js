@@ -209,17 +209,28 @@ const ajustesService = {
             // Iniciar transacción
             await connection.beginTransaction();
             
+            
             // Obtener stock actual
             const [stockActual] = await connection.query(
               'SELECT * FROM stock WHERE producto_id = ? AND ubicacion_id = ?',
               [ajuste.productoId, ajuste.ubicacionId]
             );
-            
+
+            let cantidadAnterior = 0;
+
             if (stockActual.length === 0) {
-              throw new Error('No hay stock registrado para este producto en esta ubicación');
+              // No existe stock, crear uno nuevo
+              console.log('Creando nuevo registro de stock para producto ID:', ajuste.productoId, 'en ubicación ID:', ajuste.ubicacionId);
+              
+              await connection.query(
+                `INSERT INTO stock 
+                  (producto_id, ubicacion_id, cantidad, stock_minimo, stock_maximo, ultima_actualizacion) 
+                VALUES (?, ?, 0, 0, 0, CURRENT_TIMESTAMP)`,
+                [ajuste.productoId, ajuste.ubicacionId]
+              );
+            } else {
+              cantidadAnterior = stockActual[0].cantidad;
             }
-            
-            const cantidadAnterior = stockActual[0].cantidad;
             
             // Registrar el ajuste
             const [resultAjuste] = await connection.query(
